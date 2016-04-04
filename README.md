@@ -1,0 +1,1 @@
+This is a WPML bridge plugin for [MU Domain Mapping](https://wordpress.org/plugins/wordpress-mu-domain-mapping/).
