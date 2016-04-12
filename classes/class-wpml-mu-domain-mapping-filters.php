@@ -10,16 +10,6 @@ Class WPML_MU_Domain_Mapping_Filters extends WPML_WPDB_And_SP_User {
 	 */
 	private $abs_home_url;
 
-	/**
-	 * WPML_MU_Domain_Mapping_Filters constructor.
-	 *
-	 * @param wpdb $wpdb
-	 * @param SitePress $sitepress
-	 */
-	public function __construct( wpdb &$wpdb, SitePress &$sitepress ) {
-		parent::__construct( $wpdb, $sitepress );
-	}
-
 	public function init_hooks() {
 		add_filter( 'wpml_url_converter_get_abs_home', array( $this, 'url_converter_get_abs_home_filter' ) );
 	}
@@ -31,24 +21,31 @@ Class WPML_MU_Domain_Mapping_Filters extends WPML_WPDB_And_SP_User {
 	 */
 	public function url_converter_get_abs_home_filter( $abs_home_url ) {
 
-		if( ! isset( $this->abs_home_url ) && $this->is_plugin_operating() ){
+		if( ! isset( $this->abs_home_url ) ){
 
-			$domain = $this->wpdb->get_var(
-				$this->wpdb->prepare(
-					"SELECT domain FROM {$this->wpdb->dmtable}
+			if ( $this->is_plugin_operating() ) {
+				$domain = $this->wpdb->get_var(
+					$this->wpdb->prepare(
+						"SELECT domain FROM {$this->wpdb->dmtable}
 					 WHERE blog_id  = %d
 					 LIMIT 1",
-					$this->wpdb->blogid
-				)
-			);
+						$this->wpdb->blogid
+					)
+				);
 
-			$protocol = ( preg_match( '/^(https)/', get_option( 'home' ) ) === 1 ? 'https://' : 'http://' );
-			$this->abs_home_url = $domain ? trailingslashit( $protocol . $domain ) : $abs_home_url;
+				$protocol = parse_url( get_option( 'home' ), PHP_URL_SCHEME );
+				$this->abs_home_url = $domain ? trailingslashit( $protocol . $domain ) : $abs_home_url;
+			} else {
+				$this->abs_home_url = $abs_home_url;
+			}
 		}
 
 		return $this->abs_home_url;
 	}
 
+	/**
+	 * @return bool
+	 */
 	private function is_plugin_operating() {
 		return $this->sitepress->get_wp_api()->constant( 'DOMAIN_MAPPING' )
 		       && ! $this->sitepress->get_wp_api()->is_main_site()

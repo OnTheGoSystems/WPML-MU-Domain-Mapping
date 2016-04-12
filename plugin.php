@@ -11,12 +11,12 @@ Plugin Slug: wpml-mu-domain-mapping
 
 function wpml_mu_domain_mapping_load() {
 	global $wpdb, $sitepress;
-	$wpml_auto_loader_instance = WPML_Auto_Loader::get_instance();
-	$wpml_auto_loader_instance->register( dirname( __FILE__ ) . '/' );
 
 	if ( $sitepress->get_wp_api()->constant( 'DOMAIN_MAPPING' )	) {
+		$wpml_auto_loader_instance = WPML_Auto_Loader::get_instance();
+		$wpml_auto_loader_instance->register( dirname( __FILE__ ) . '/' );
 		$mu_domain_mapping_filters = new WPML_MU_Domain_Mapping_Filters( $wpdb, $sitepress );
 		$mu_domain_mapping_filters->init_hooks();
 	}
 }
-add_action( 'plugins_loaded', 'wpml_mu_domain_mapping_load' );
+add_action( 'wpml_loaded', 'wpml_mu_domain_mapping_load' );
