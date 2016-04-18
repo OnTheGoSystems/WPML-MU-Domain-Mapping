@@ -1,5 +1,7 @@
 <?php
 
+require_once dirname( __FILE__ ) . '/../../../classes/class-wpml-mu-domain-mapping-filters.php';
+
 class Test_WPML_MU_Domain_Mapping_Filters extends WPML_UnitTestCase {
 
 	public function test_init_hooks() {
@@ -24,10 +26,6 @@ class Test_WPML_MU_Domain_Mapping_Filters extends WPML_UnitTestCase {
 		$wpml_wp_api->method( 'constant' )->with( 'DOMAIN_MAPPING' )->willReturn( 1 );
 		$wpml_wp_api->method( 'is_main_site' )->willReturn( false );
 		$sitepress = $this->get_sitepress_mock( $wpml_wp_api );
-		add_filter( 'active_plugins', function( $plugins ) {
-			$plugins['wordpress-mu-domain-mapping/domain_mapping.php'] = 1;
-			return $plugins;
-		});
 
 		// Test with http
 		update_option( 'home', $home_url );
