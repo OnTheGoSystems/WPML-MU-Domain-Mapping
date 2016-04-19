@@ -28,17 +28,17 @@ class WPML_MU_Domain_Mapping_Requirements {
 		     || version_compare( ICL_SITEPRESS_VERSION, '3.3.7', '<' )
 		) {
 			$this->missing_requirements['wpml-active'] = array(
-				'message' => sprintf( __( 'The plugin <a href="%s">WPML</a> is not active.', 'wpml-mu-domain-mapping' ),
-									  'https://wpml.org' ),
+				'message' => sprintf( esc_html__( 'The plugin %s is not active.', 'wpml-mu-domain-mapping' ),
+									  '<a href="https://wpml.org">WPML</a>' ),
 			);
 		}
 
 		if ( ! $this->is_plugin_active_for_network( 'wordpress-mu-domain-mapping/domain_mapping.php' ) ) {
 			$this->missing_requirements['mu-domain-mapping-active'] = array(
-				'message' => sprintf( __( 'The plugin <a href="%1$s">MU Domain Mapping</a> is not active on the network
-										   Please review the installation process on <a href="%2$s">%2$s</a>', 'wpml-mu-domain-mapping' ),
-					'https://wordpress.org/plugins/wordpress-mu-domain-mapping/',
-					'https://wordpress.org/plugins/wordpress-mu-domain-mapping/installation/' ),
+				'message' => sprintf( esc_html__( 'The plugin %s is not active on the network.
+										   Please review the installation process on %s', 'wpml-mu-domain-mapping' ),
+					'<a href="https://wordpress.org/plugins/wordpress-mu-domain-mapping/">MU Domain Mapping</a>',
+					'<a href="https://wordpress.org/plugins/wordpress-mu-domain-mapping/installation/">https://wordpress.org/plugins/wordpress-mu-domain-mapping/installation/</a>' ),
 			);
 		}
 	}
@@ -52,7 +52,7 @@ class WPML_MU_Domain_Mapping_Requirements {
 			                    __( 'WPML MU Domain Mapping is enabled but not effective.
 										     Please check the missing requirements bellow:', 'wpml-mu-domain-mapping' ) .
 							'</p>
-							 <ul>';
+							 <ul class="ul-disc">';
 
 			foreach ( $this->missing_requirements as $missing_requirement ) {
 				$output .=      '<li>' . $missing_requirement['message'] . '</li>';
