@@ -33,8 +33,8 @@ Class WPML_MU_Domain_Mapping_Filters extends WPML_WPDB_And_SP_User {
 					)
 				);
 
-				$protocol = parse_url( get_option( 'home' ), PHP_URL_SCHEME );
-				$this->abs_home_url = $domain ? trailingslashit( $protocol . '://' . $domain ) : $abs_home_url;
+				$parsed_url = wp_parse_url( get_option( 'home' ) );
+				$this->abs_home_url = $domain ? trailingslashit( $parsed_url['scheme'] . '://' . $domain ) : $abs_home_url;
 			} else {
 				$this->abs_home_url = $abs_home_url;
 			}
