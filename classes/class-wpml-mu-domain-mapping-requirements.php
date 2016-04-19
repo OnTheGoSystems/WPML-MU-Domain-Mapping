@@ -5,15 +5,15 @@ class WPML_MU_Domain_Mapping_Requirements {
 	private $missing_requirements = array();
 
 	public function __construct() {
-		add_action( 'wpml_loaded',   array( $this, 'wpml_loaded_action' ) );
-		add_action( 'admin_notices', array( $this, 'admin_notices_action' ) );
+		add_action( 'plugins_loaded', array( $this, 'plugins_loaded_action' ) );
+		add_action( 'admin_notices',  array( $this, 'admin_notices_action' ) );
 
 		if ( is_admin() && $this->is_plugin_active_for_network( WPML_MU_DOMAIN_MAPPING_ID ) ) {
 			add_action( 'network_admin_notices', array( $this, 'admin_notices_action' ) );
 		}
 	}
 
-	public function wpml_loaded_action() {
+	public function plugins_loaded_action() {
 		$this->check_required_plugins();
 
 		if ( empty( $this->missing_requirements ) ) {
