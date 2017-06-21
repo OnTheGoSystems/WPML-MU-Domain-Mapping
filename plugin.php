@@ -9,7 +9,12 @@ Version: 1.1.0
 Plugin Slug: wpml-mu-domain-mapping
 */
 
+if ( defined( 'WPML_MU_DOMAIN_MAPPING_PATH' ) || get_option( '_wpml_inactive' ) ) {
+	return;
+}
+
 define( 'WPML_MU_DOMAIN_MAPPING_ID', plugin_basename( __FILE__ ) );
+define( 'WPML_MU_DOMAIN_MAPPING_PATH', dirname( __FILE__ ) );
 
 require_once 'classes/class-wpml-mu-domain-mapping-requirements.php';
 new WPML_MU_Domain_Mapping_Requirements();

@@ -3,12 +3,21 @@
 /**
  * Class WPML_MU_Domain_Mapping_Filters
  */
-Class WPML_MU_Domain_Mapping_Filters extends WPML_WPDB_And_SP_User {
+class WPML_MU_Domain_Mapping_Filters {
 
-	/**
-	 * @var string
-	 */
+	/** @var wpdb $wpdb */
+	private $wpdb;
+
+	/** @var SitePress $sitepress */
+	private $sitepress;
+
+	/** @var string */
 	private $abs_home_url;
+
+	public function __construct( wpdb $wpdb, SitePress $sitepress ) {
+		$this->wpdb      = $wpdb;
+		$this->sitepress = $sitepress;
+	}
 
 	public function init_hooks() {
 		add_filter( 'wpml_url_converter_get_abs_home', array( $this, 'url_converter_get_abs_home_filter' ) );
@@ -46,7 +55,7 @@ Class WPML_MU_Domain_Mapping_Filters extends WPML_WPDB_And_SP_User {
 	/**
 	 * @return bool
 	 */
-	public function is_plugin_operating() {
+	private function is_plugin_operating() {
 		return ! $this->sitepress->get_wp_api()->is_main_site()
 			   && $this->sitepress->get_wp_api()->constant( 'DOMAIN_MAPPING' );
 	}

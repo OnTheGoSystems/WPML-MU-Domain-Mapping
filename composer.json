@@ -1,0 +1,49 @@
+{
+  "name": "otgs/wpml-mu-domain-mapping",
+  "description": "WPML MU Domain Mapping Dependencies",
+  "license": "GPL-2.0",
+  "homepage": "https://github.com/OnTheGoSystems/WPML-MU-Domain-Mapping",
+  "type": "wordpress-plugin",
+  "authors": [
+    {
+      "name": "OnTheGoSystems",
+      "homepage": "http://wpml.org"
+    }
+  ],
+  "minimum-stability": "dev",
+  "prefer-stable": true,
+  "require": {
+    "roave/security-advisories": "dev-master",
+    "xrstf/composer-php52": "1.*"
+  },
+  "require-dev": {
+    "roave/security-advisories": "dev-master",
+    "10up/wp_mock": "dev-master",
+    "lucatume/function-mocker": "~1.0",
+    "league/factory-muffin": "^3.0",
+    "league/factory-muffin-faker": "^2.0",
+    "symfony/dom-crawler": "^3.1",
+    "symfony/css-selector": "^3.1",
+    "joshtronic/php-loremipsum": "dev-master",
+    "phpunit/phpunit": "^5"
+  },
+  "scripts": {
+    "post-install-cmd": [
+      "xrstf\\Composer52\\Generator::onPostInstallCmd",
+      "OTGS\\Composer\\Scripts\\Install::PHPCSStandards"
+    ],
+    "post-update-cmd": [
+      "xrstf\\Composer52\\Generator::onPostInstallCmd",
+      "OTGS\\Composer\\Scripts\\Install::PHPCSStandards"
+    ],
+    "post-autoload-dump": [
+      "xrstf\\Composer52\\Generator::onPostInstallCmd"
+    ]
+  },
+  "autoload-dev": {
+    "classmap": [
+      "classes/",
+      "tests/phpunit/util/"
+    ]
+  }
+}

@@ -1,29 +1,23 @@
 <phpunit
-        bootstrap="./tests/bootstrap.php"
+        bootstrap="./tests/phpunit/bootstrap.php"
         backupGlobals="false"
         colors="true"
         convertErrorsToExceptions="true"
         convertNoticesToExceptions="true"
         convertWarningsToExceptions="true"
         >
-    <testsuites>
+	<testsuites>
         <testsuite name="wpml-mu-domain-mapping-tests">
-            <directory prefix="test-" suffix=".php">./tests/tests/</directory>
+            <directory suffix=".php">./tests/phpunit/</directory>
         </testsuite>
     </testsuites>
     <filter>
         <whitelist>
             <directory suffix=".php">./</directory>
             <exclude>
-                <directory>./inc/installer/</directory>
-                <directory>./lib/Twig/</directory>
-                <directory>./tests/</directory>
-                <directory>./vendor/</directory>
-                <directory>./tmp/</directory>
-                <directory>./build/</directory>
-                <directory>./embedded/</directory>
-                <directory>./wordpress/</directory>
-                <directory>./wordpress-tests-lib/</directory>
+							<directory>./build</directory>
+							<directory>./locale</directory>
+							<directory>./tests</directory>
             </exclude>
         </whitelist>
     </filter>
