@@ -75,9 +75,15 @@ class Test_WPML_MU_Domain_Mapping_Filters extends WPML_MU_Domain_Mapping_UnitTes
 		$domain       = 'anything.com';
 		$expected_url = 'https://anything.com/';
 
+		$query = "SELECT domain FROM {$this->wpdb->dmtable}
+				 WHERE blog_id  = %d AND active = 1";
+
+		$prepared_query = md5( $query, $this->wpdb->blogid );
+
 		$this->wp_api->method( 'is_main_site' )->willReturn( false );
 		$this->wp_api->method( 'constant' )->with( 'DOMAIN_MAPPING' )->willReturn( true );
-		$this->wpdb->method( 'get_var' )->willReturn( $domain );
+		$this->wpdb->method( 'prepare' )->with( $query, $this->wpdb->blogid )->willReturn( $prepared_query );
+		$this->wpdb->method( 'get_var' )->with( $prepared_query )->willReturn( $domain );
 
 		\WP_Mock::wpFunction( 'get_option', array(
 			'args' => array( 'home' ),
