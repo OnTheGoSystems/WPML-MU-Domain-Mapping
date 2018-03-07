@@ -33,16 +33,8 @@ class WPML_MU_Domain_Mapping_Filters {
 		if( ! isset( $this->abs_home_url ) ){
 
 			if ( $this->is_plugin_operating() ) {
-				$domain = $this->wpdb->get_var(
-					$this->wpdb->prepare(
-						"SELECT domain FROM {$this->wpdb->dmtable}
-					 WHERE blog_id  = %d
-					 LIMIT 1",
-						$this->wpdb->blogid
-					)
-				);
-
-				$parsed_url = wp_parse_url( get_option( 'home' ) );
+				$domain             = $this->select_active_mapped_domain();
+				$parsed_url         = wp_parse_url( get_option( 'home' ) );
 				$this->abs_home_url = $domain ? trailingslashit( $parsed_url['scheme'] . '://' . $domain ) : $abs_home_url;
 			} else {
 				$this->abs_home_url = $abs_home_url;
@@ -58,5 +50,18 @@ class WPML_MU_Domain_Mapping_Filters {
 	private function is_plugin_operating() {
 		return ! $this->sitepress->get_wp_api()->is_main_site()
 			   && $this->sitepress->get_wp_api()->constant( 'DOMAIN_MAPPING' );
+	}
+
+	/** @return null|string */
+	private function select_active_mapped_domain() {
+		$domain = $this->wpdb->get_var(
+			$this->wpdb->prepare(
+				"SELECT domain FROM {$this->wpdb->dmtable}
+				 WHERE blog_id  = %d AND active = 1",
+				$this->wpdb->blogid
+			)
+		);
+
+		return $domain;
 	}
 }
