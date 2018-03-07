@@ -13,6 +13,3 @@ tests/wordpress
 tags
 *.komodoproject
 embedded/*
-composer.lock
-#composer.json
-!/composer.json

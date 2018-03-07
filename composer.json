@@ -18,13 +18,8 @@
   },
   "require-dev": {
     "roave/security-advisories": "dev-master",
-    "10up/wp_mock": "dev-master",
-    "lucatume/function-mocker": "~1.0",
-    "league/factory-muffin": "^3.0",
-    "league/factory-muffin-faker": "^2.0",
-    "symfony/dom-crawler": "^3.1",
-    "symfony/css-selector": "^3.1",
-    "joshtronic/php-loremipsum": "dev-master",
+    "10up/wp_mock": "~0.2.0",
+    "lucatume/function-mocker": "~1.3.0",
     "phpunit/phpunit": "^5"
   },
   "scripts": {
