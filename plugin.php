@@ -2,10 +2,10 @@
 /*
 Plugin Name: WPML MU Domain Mapping
 Plugin URI: https://wpml.org/
-Description: This is a bridge plugin to make <a href="https://wordpress.org/plugins/wordpress-mu-domain-mapping/" target="_blank">MU Domain Mapping</a> compatible with WPML
+Description: This is a bridge plugin to make <a href="https://wordpress.org/plugins/wordpress-mu-domain-mapping/" target="_blank">MU Domain Mapping</a> compatible with WPML. It also works with <a href="https://premium.wpmudev.org/project/domain-mapping/">Domain Mapping</a>.
 Author: OnTheGoSystems
 Author URI: http://www.onthegosystems.com/
-Version: 1.1.0
+Version: 1.1.1
 Plugin Slug: wpml-mu-domain-mapping
 */
 
