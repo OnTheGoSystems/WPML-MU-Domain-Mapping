@@ -33,6 +33,11 @@ class WPML_MU_Domain_Mapping_Requirements {
 			);
 		}
 
+		// This works too for 'Domain Mapping' from WPMUDEV.
+		if ( $this->is_plugin_active_for_network( 'domain-mapping/domain-mapping.php' ) ) {
+			return;
+		}
+
 		if ( ! $this->is_plugin_active_for_network( 'wordpress-mu-domain-mapping/domain_mapping.php' ) ) {
 			$this->missing_requirements['mu-domain-mapping-active'] = array(
 				'message' => sprintf( esc_html__( 'The plugin %s is not active on the network.
